@@ -1,0 +1,407 @@
+/* =========================
+   Google Fonts & Root Variables
+   ========================= */
+@import url('[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)');
+
+:root {
+  --primary-color: #3b82f6; /* Blue 500 */
+  --primary-dark: #2563eb; /* Blue 600 */
+  --secondary-color: #10b981; /* Emerald 500 */
+  --danger-color: #ef4444; /* Red 500 */
+  --warning-color: #f59e0b; /* Amber 500 */
+  
+  --bg-color: #f8fafc; /* Slate 50 */
+  --card-bg-color: #ffffff;
+  --border-color: #e2e8f0; /* Slate 200 */
+  --text-dark: #0f172a; /* Slate 900 */
+  --text-light: #64748b; /* Slate 500 */
+  --text-white: #ffffff;
+
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --transition-speed: 0.3s;
+}
+
+/* =========================
+   Global Styles
+   ========================= */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* =========================
+   Main Layout
+   ========================= */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: var(--card-bg-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.header-content p {
+  margin: 0;
+  color: var(--text-light);
+}
+
+.header-content .icon {
+  width: 28px;
+  height: 28px;
+  color: var(--primary-color);
+}
+
+.main-content {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr; 
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-container {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+/* =========================
+   Card Styles (for all containers)
+   ========================= */
+.form-container, .result-container, .health-tips-container {
+  background-color: var(--card-bg-color);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+  .form-container, .result-container, .health-tips-container {
+    padding: 1.5rem;
+  }
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+/* =========================
+   Form Container
+   ========================= */
+.input-flex-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 500px) {
+    .input-flex-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  transition: all var(--transition-speed) ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.predict-button {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-white);
+  transition: all var(--transition-speed) ease;
+}
+
+.predict-button:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.predict-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Result Section
+   ========================= */
+.result-display {
+  /* Removed height and vertical alignment properties */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-height: 200px; /* Ensures a minimum height for the initial message */
+}
+
+.initial-message {
+  color: var(--text-light);
+  flex-grow: 1; /* Allows it to take up space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.initial-message .icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.prediction-output {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+}
+
+.prediction-output.non-diabetic {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+.prediction-output.diabetic {
+  background-color: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.result-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.status-icon {
+  font-size: 1.5rem;
+}
+
+.probability-text {
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.result-bar {
+  width: 100%;
+  height: 12px;
+  background-color: var(--border-color);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.result-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width var(--transition-speed) ease-in-out;
+}
+
+.prediction-output.non-diabetic .result-bar-fill {
+  background-color: var(--secondary-color);
+}
+
+.prediction-output.diabetic .result-bar-fill {
+  background-color: var(--danger-color);
+}
+
+/* =========================
+   Error & Loading States
+   ========================= */
+.error-message, .loading-spinner {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.error-message {
+  color: var(--danger-color);
+  background-color: #fee2e2;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+.spinner {
+  margin: 0 auto 1rem auto;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   Health Tips Section
+   ========================= */
+.tips-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tip-card {
+  background-color: var(--bg-color);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.tip-emoji {
+  font-size: 1.75rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.tip-card h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.tip-card p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+.complications-section h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.complications-section p {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.complications-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+  list-style: '› ';
+}
+
+.complications-section li {
+  margin-bottom: 0.25rem;
+}
+
+
+/* =========================
+   Footer
+   ========================= */
+.app-footer {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+.app-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+.app-footer a:hover {
+  text-decoration: underline;
+}
